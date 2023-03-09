@@ -1,0 +1,4 @@
+username;password;expected_error
+bala;bala123;Invalid creds
+ken;ken123;Invalid creds
+peter;peter123;Invalid creds
