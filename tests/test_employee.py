@@ -9,6 +9,19 @@ from utilities import data_source
 class TestAddEmployee(WebDriverWrapper):
 
     @pytest.mark.parametrize(
+        "username, password, file_path", data_source.test_invalid_profile_upload)
+    def test_invalid_profile_upload(self, username, password, file_path):
+        self.driver.find_element(By.XPATH, "//input[@placeholder='Username']").send_keys(username)
+        self.driver.find_element(By.XPATH, "//input[@placeholder='Password']").send_keys(password)
+        self.driver.find_element(By.XPATH, "//button[normalize-space()='Login']").click()
+        self.driver.find_element(By.XPATH, "//span[normalize-space()='PIM']").click()
+        self.driver.find_element(By.XPATH, "//a[normalize-space()='Add Employee']").click()
+        time.sleep(10)
+        self.driver.find_element(By.XPATH, "//input[@type='file']").send_keys(file_path)
+        actual_error = self.driver.find_element(By.XPATH, "//span[@class='oxd-text oxd-text--span oxd-input-field-error-message oxd-input-group__message']").text
+        assert_that(actual_error).contains("not allowed")
+
+    @pytest.mark.parametrize(
         "username, password, firstname, middlename, lastname, emp_id, expected_profile_header, expected_profile_firstname",
         data_source.test_add_valid_employee)
     def test_add_valid_employee(self, username, password, firstname, middlename, lastname, emp_id,
