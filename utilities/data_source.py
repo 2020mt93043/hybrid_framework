@@ -17,3 +17,6 @@ test_add_valid_employee = read_utils.get_sheet_as_list("../test_data/orange_test
 
 # import test data from excel to upload wrong file to profile photo
 test_invalid_profile_upload = read_utils.upload_wrong_file_profile_photo("../test_data/orange_test_data.xlsx", "test_invalid_profile_upload")
+
+# import test data from json file
+test_get_value_from_json = read_utils.get_value_from_json("../test_data/data.json", "browser")
